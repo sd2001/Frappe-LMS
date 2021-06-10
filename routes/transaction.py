@@ -17,6 +17,12 @@ async def new_issue(transaction: pm.Transactions, db: orm.Session=Depends(serv.g
     if transaction_member is None:
         raise HTTPException(status_code=404, detail="This Member ID doesn't exist!")
     
+    db_user = db.query(sql.Members).filter(sql.Members._id == transaction.member_id).first()
+    
+    if db_user.warning == True:
+        raise HTTPException(status_code=403, detail="Member Debt exceeds Limit, Forbidden!")
+    
+    
     new_transaction = sql.Transactions(member_id=transaction.member_id, book_id=transaction.book_id)
     db.add(new_transaction)
     db.commit()
@@ -40,6 +46,9 @@ async def return_issue(id:int, transaction: pm.Transactions, db: orm.Session=Dep
     
     if db_transac.pay != 50:
         db_user.debt += 50 - db_transac.pay
+        
+    if db_user.debt > 500 and db_user.warning == False:
+        db_user.warning = True
         
     db.commit()
     db.refresh(db_transac)    
