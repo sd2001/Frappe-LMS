@@ -52,4 +52,9 @@ async def delete_members(id: int, db: orm.Session=Depends(serv.get_db)):
     db_user.delete()
     db.commit()
     return temp_user
+
+@app.get('/members/warning', response_model = pm.Members)
+async def warning_members(db: orm.Session=Depends(serv.get_db)):
+    db_user = db.query(sql.Members).filter(sql.Members.warning == True)
+    return db_user
  
