@@ -53,7 +53,7 @@ async def delete_members(id: int, db: orm.Session=Depends(serv.get_db)):
     db.commit()
     return temp_user
 
-@app.get('/warnings', response_model = List[pm.Members])
+@app.get('/library/warnings', response_model = List[pm.Members])
 async def warning_members(db: orm.Session=Depends(serv.get_db)):
     db_users = db.query(sql.Members).filter(sql.Members.warning == True).all()
     return db_users
