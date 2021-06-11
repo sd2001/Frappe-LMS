@@ -47,10 +47,10 @@ def getbooks(db: orm.Session=Depends(serv.get_db)):
     except Exception as e:
         return Response(content=str(e))
 
-@app.get('/books/{id}', response_model=pm.Books)
-def getbook(id: int, db: orm.Session=Depends(serv.get_db)):
+@app.get('/books/{isbn13}', response_model=pm.Books)
+def getbook(isbn13: int, db: orm.Session=Depends(serv.get_db)):
     try:
-        db_book = db.query(sql.Books).filter(sql.Books._bookID == id).first()
+        db_book = db.query(sql.Books).filter(sql.Books.isbn13 == isbn13).first()
         if db_book is None:
             raise HTTPException(status_code=404, detail="This book does not exist!")
         return db_book
