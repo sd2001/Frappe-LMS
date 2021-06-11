@@ -23,7 +23,7 @@ class Transactions(BaseModel):
     book_id : int
     date : datetime.datetime
     returned : Optional[bool] = False
-    pay : Optional[bool] = False
+    pay : Optional[int] = 0
     class Config:
         orm_mode = True
         
