@@ -5,7 +5,7 @@ from config.db import Base
 
 class Books(Base):
     __tablename__ = 'books'
-    _bookID = Column(Integer, primary_key=True, index=True)
+    bookID = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     authors = Column(String)
     average_rating = Column(Float)
@@ -25,7 +25,7 @@ class Books(Base):
 
 class Members(Base):
     __tablename__ = "members"
-    _id = Column(Integer, primary_key=True, index=True) # We should use uuid here, but to keep it simple for now I used Integer
+    id = Column(Integer, primary_key=True, index=True) # We should use uuid here, but to keep it simple for now I used Integer
     name = Column(String)
     email = Column(String, unique=True, index=True)
     date = Column(DateTime, default = dt.datetime.now())
@@ -36,9 +36,9 @@ class Members(Base):
     
 class Transactions(Base):
     __tablename__ = "transactions"
-    _id = Column(Integer, primary_key=True, index=True) # We should use uuid here, but to keep it simple for now I used Integer  
-    member_id = Column(Integer, ForeignKey('members._id'))
-    book_id = Column(Integer, ForeignKey('books._bookID'))
+    id = Column(Integer, primary_key=True, index=True) # We should use uuid here, but to keep it simple for now I used Integer  
+    member_id = Column(Integer, ForeignKey('members.id'))
+    book_id = Column(Integer, ForeignKey('books.bookID'))
     date = Column(DateTime, default = dt.datetime.now())
     returned = Column(Boolean, default=False)
     pay = Column(Integer, default=0)

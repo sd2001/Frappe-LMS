@@ -6,7 +6,7 @@ import datetime
 from models import sql_models as sql
 
 class Members(BaseModel):
-    _id : int
+    id : int
     name : str
     email : str
     date : datetime.datetime
@@ -18,7 +18,7 @@ class Members(BaseModel):
         orm_mode = True
     
 class Transactions(BaseModel):
-    _id : int
+    id : int
     member_id : int
     book_id : int
     date : datetime.datetime
@@ -28,7 +28,7 @@ class Transactions(BaseModel):
         orm_mode = True
         
 class Books(BaseModel):
-    _bookID : int
+    bookID : int
     title : str
     authors : str
     average_rating : float
@@ -45,6 +45,6 @@ class Books(BaseModel):
     class Config:
         orm_mode = True
 
-db = SessionLocal()
+# db = SessionLocal()
         
 
