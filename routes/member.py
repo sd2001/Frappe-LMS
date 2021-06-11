@@ -14,7 +14,7 @@ async def get_members(db: orm.Session=Depends(serv.get_db)):
 
 @app.get('/members/{id}', response_model = pm.Members)
 async def get_members(id: int, db: orm.Session=Depends(serv.get_db)):
-    db_user = db.query(sql.Members).filter(sql.Members._id == id).first()
+    db_user = db.query(sql.Members).filter(sql.Members.id == id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="This user does not exist!")
     return db_user
@@ -33,7 +33,7 @@ async def create_member(member: pm.Members, db: orm.Session=Depends(serv.get_db)
 
 @app.put('/members/{id}', response_model = pm.Members)
 async def update_members(id: int, member: pm.Members, db: orm.Session=Depends(serv.get_db)):
-    db_user = db.query(sql.Members).filter(sql.Members._id == id).first()
+    db_user = db.query(sql.Members).filter(sql.Members.id == id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="This user does not exist!")
     
@@ -45,7 +45,7 @@ async def update_members(id: int, member: pm.Members, db: orm.Session=Depends(se
     
 @app.delete('/members/{id}')
 async def delete_members(id: int, db: orm.Session=Depends(serv.get_db)):  
-    db_user = db.query(sql.Members).filter(sql.Members._id == id)
+    db_user = db.query(sql.Members).filter(sql.Members.id == id)
     temp_user = db_user
     if db_user is None:
         raise HTTPException(status_code=404, detail="This user does not exist!")
