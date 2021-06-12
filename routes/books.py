@@ -15,29 +15,31 @@ def push_db(db: orm.Session=Depends(serv.get_db)):
     This route pushes the Data from Frappe API into the database directly. This also ensures the entries aren't duplicated.
     The data obtained is stored in the Books Table respective to their Column Labels
     '''
-    
-    booklist = requests.get('https://frappe.io/api/method/frappe-library')
-    books = booklist.json()
-    books = books["message"]
-    for book in books:
-        new_book = sql.Books(
-            bookID = book['bookID'],
-            title = book['title'],
-            authors = book['authors'],
-            average_rating = book['average_rating'],
-            isbn = book['isbn'],
-            isbn13 = book['isbn13'],
-            language_code = book['language_code'],
-            num_pages = book['  num_pages'],
-            ratings_count = book['ratings_count'],
-            text_reviews_count = book['text_reviews_count'],
-            publication_date = book['publication_date'],
-            publisher = book['publisher'],        
-        )
-        db.add(new_book)
-        db.commit()
-        db.refresh(new_book)
-    return Response(content="Data has been Added")
+    try:
+        booklist = requests.get('https://frappe.io/api/method/frappe-library')
+        books = booklist.json()
+        books = books["message"]
+        for book in books:
+            new_book = sql.Books(
+                bookID = book['bookID'],
+                title = book['title'],
+                authors = book['authors'],
+                average_rating = book['average_rating'],
+                isbn = book['isbn'],
+                isbn13 = book['isbn13'],
+                language_code = book['language_code'],
+                num_pages = book['  num_pages'],
+                ratings_count = book['ratings_count'],
+                text_reviews_count = book['text_reviews_count'],
+                publication_date = book['publication_date'],
+                publisher = book['publisher'],        
+            )
+            db.add(new_book)
+            db.commit()
+            db.refresh(new_book)
+        return Response(content="Data has been Added")
+    except Exception:
+        return Response(content="Books have already been added!")
     
      
 
