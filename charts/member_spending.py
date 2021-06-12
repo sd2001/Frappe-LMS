@@ -10,8 +10,7 @@ def member_bar_plot(names, spend):
     
     
     fig1 = go.Figure(data=data, layout=go.Layout(title=go.layout.Title(text="Bar Chart: Net Expenditure of Members")))
-    fig1.update_layout(width=600, height=600,
-                       font_family="Arial",
+    fig1.update_layout(font_family="Arial",
                        title_font_color="RebeccaPurple",
                        title_font_family="Courier New, monospace",
                        title={
@@ -29,8 +28,7 @@ def member_pie_plot(names, spend):
     
     
     fig2 = go.Figure(data=data, layout=go.Layout(title=go.layout.Title(text="Pie Chart: Net Expenditure of Members")))
-    fig2.update_layout(width=600, height=600,
-                       font_family="Arial",
+    fig2.update_layout(font_family="Arial",
                        title_font_color="RebeccaPurple",
                        title_font_family="Courier New, monospace",
                        title={
