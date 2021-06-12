@@ -46,6 +46,15 @@ def getbooks(db: orm.Session=Depends(serv.get_db)):
         return db_books
     except Exception as e:
         return Response(content=str(e))
+    
+@app.get('/members/views/books', response_model=List[pm.Books],
+         response_model_exclude={"bookID", "total_stock", "rem_stock", "net_issue"})
+def member_session_books(db: orm.Session=Depends(serv.get_db)):
+    try:
+        db_books = db.query(sql.Books).all()
+        return db_books
+    except Exception as e:
+        return Response(content=str(e))
 
 @app.get('/books/{id}', response_model=pm.Books)
 def getbook(id: int, db: orm.Session=Depends(serv.get_db)):
