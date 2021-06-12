@@ -5,6 +5,8 @@ from plotly.subplots import make_subplots
 import numpy as np
 
 def book_pie_plot(names, issues):
+    x = map(shorten_titles15, names)
+    names = list(x)
     data = [go.Pie(labels = names,values = issues, textinfo='percent', hole=.4)]
     
     
@@ -21,11 +23,14 @@ def book_pie_plot(names, issues):
     
     return fig1
 
-def shorten_titles(n):
+def shorten_titles20(n):
     return n[:20]
 
+def shorten_titles15(n):
+    return n[:15]
+
 def book_line_plot(names, issues):
-    x = map(shorten_titles, names)
+    x = map(shorten_titles20, names)
     names = list(x)
     data = [go.Scatter(x = names, y = issues, mode='lines+markers', line_color='rgb(0,100,80)')]
     fig2 = go.Figure(data=data, layout=go.Layout(title=go.layout.Title(text="Line Chart: Most Issued Books")))
