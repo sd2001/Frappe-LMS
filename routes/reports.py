@@ -16,7 +16,7 @@ from fastapi.templating import Jinja2Templates
 app = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
-@app.get('/reports')
+@app.get('/reports', include_in_schema=False)
 async def get_report(request: Request, db: orm.Session=Depends(serv.get_db)):
     try:
         db_dist_books = db.query(sql.Transactions.book_id.distinct())
