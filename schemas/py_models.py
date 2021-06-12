@@ -42,6 +42,7 @@ class Books(BaseModel):
     publisher : str
     total_stock : Optional[int] = 10
     rem_stock : Optional[int] = 10
+    net_issue : Optional[int] = 0
     class Config:
         orm_mode = True
 
