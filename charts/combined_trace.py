@@ -4,6 +4,9 @@ import charts.book_issues as bu
 import plotly.graph_objects as go
 
 def final_plots(members, spend, books, issues):
+    '''
+    Combining all the 4 Plotly figures and writing them to a HTML file
+    '''
     fig1 = ms.member_bar_plot(members, spend)
     fig2 = ms.member_pie_plot(members, spend)
     
