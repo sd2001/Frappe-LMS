@@ -5,6 +5,11 @@ from enum import Enum
 import datetime
 from models import sql_models as sql
 
+'''
+These are Pydantic Schemas for the SQL Models which are used in the routes to ensure strict Data Validation before accepting
+This prevents errors within the views, resulting in Internal Server Errors(status: 500)
+'''
+
 class Members(BaseModel):
     id : int
     name : str
@@ -15,7 +20,7 @@ class Members(BaseModel):
     warning : Optional[bool] = False
     
     class Config:
-        orm_mode = True
+        orm_mode = True   # This ensures that the pydantic models can be used with the ORM: SQLAlchemy
     
 class Transactions(BaseModel):
     id : int
@@ -46,6 +51,6 @@ class Books(BaseModel):
     class Config:
         orm_mode = True
 
-# db = SessionLocal()
+
         
 
