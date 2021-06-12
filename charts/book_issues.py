@@ -18,7 +18,7 @@ def book_pie_plot(names, issues):
     fig1.update_layout(font_family="Arial",
                        title_font_color="RebeccaPurple",
                        title_font_family="Courier New, monospace",title={
-						'y':0.9,
+						'y':0.95,
 						'x':0.5,
 						'xanchor': 'center',
 						'yanchor': 'top'})
@@ -45,7 +45,7 @@ def book_line_plot(names, issues):
                        title_font_color="RebeccaPurple",
                        title_font_family="Courier New, monospace",
                        title={
-						'y':0.9,
+						'y':0.95,
 						'x':0.5,
 						'xanchor': 'center',
 						'yanchor': 'top'})

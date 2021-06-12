@@ -17,7 +17,7 @@ def member_bar_plot(names, spend):
                        title_font_color="RebeccaPurple",
                        title_font_family="Courier New, monospace",
                        title={
-						'y':0.9,
+						'y':0.95,
 						'x':0.5,
 						'xanchor': 'center',
 						'yanchor': 'top'})
@@ -37,7 +37,7 @@ def member_pie_plot(names, spend):
                        title_font_color="RebeccaPurple",
                        title_font_family="Courier New, monospace",
                        title={
-						'y':0.9,
+						'y':0.95,
 						'x':0.5,
 						'xanchor': 'center',
 						'yanchor': 'top'})
