@@ -2,16 +2,19 @@ import requests
 from fastapi import APIRouter, Depends, HTTPException, Response
 from schemas  import py_models as pm
 from typing import List
-import services as serv
+import app_services.services as serv
 import sqlalchemy.orm as orm
 from models import sql_models as sql
 
 app = APIRouter()
 
 
-
 @app.get('/books/push_db', status_code = 201)
 def push_db(db: orm.Session=Depends(serv.get_db)):
+    '''
+    This route pushes the Data from Frappe API into the database directly. This also ensures the entries aren't duplicated.
+    The data obtained is stored in the Books Table respective to their Column Labels
+    '''
     try:
         booklist = requests.get('https://frappe.io/api/method/frappe-library')
         books = booklist.json()
@@ -41,6 +44,11 @@ def push_db(db: orm.Session=Depends(serv.get_db)):
 
 @app.get('/books', response_model=List[pm.Books])
 def getbooks(db: orm.Session=Depends(serv.get_db)):
+    '''
+    This route fetches all the existing books from the Database and shows it to the user in form of a list.
+    This includes sensitive details like the BookID, Stocks and the No of Issues.
+    For the Librarian!
+    '''
     try:
         db_books = db.query(sql.Books).all()
         return db_books
@@ -50,6 +58,11 @@ def getbooks(db: orm.Session=Depends(serv.get_db)):
 @app.get('/members/views/books', response_model=List[pm.Books],
          response_model_exclude={"bookID", "total_stock", "rem_stock", "net_issue"})
 def member_session_books(db: orm.Session=Depends(serv.get_db)):
+    '''
+    This route fetches all the existing books from the Database and shows it to the user in form of a list.
+    This doesn't reveal sensitive details like the BookID, Stocks and the No of Issues.
+    For the Members or the Users!
+    '''
     try:
         db_books = db.query(sql.Books).all()
         return db_books
@@ -58,6 +71,11 @@ def member_session_books(db: orm.Session=Depends(serv.get_db)):
 
 @app.get('/books/{id}', response_model=pm.Books)
 def getbook(id: int, db: orm.Session=Depends(serv.get_db)):
+    '''
+    This route fetches a single book from the Database as per the entered BookID.
+    This includes sensitive details like the BookID, Stocks and the No of Issues.
+    For the Librarian!
+    '''
     try:
         db_book = db.query(sql.Books).filter(sql.Books.bookID == id).first()
         if db_book is None:

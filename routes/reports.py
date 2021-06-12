@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Response, Request
 from schemas  import py_models as pm
 from typing import List
-import services as serv
+import app_services.services as serv
 import sqlalchemy.orm as orm
 from sqlalchemy import distinct
 from models import sql_models as sql
@@ -14,10 +14,19 @@ from fastapi.templating import Jinja2Templates
 
 
 app = APIRouter()
+
+'''
+Configuring templates and staticfiles via Jinja2 and aiofilies respectively
+'''
+
 templates = Jinja2Templates(directory="templates")
 
 @app.get('/reports', include_in_schema=False)
 async def get_report(request: Request, db: orm.Session=Depends(serv.get_db)):
+    '''
+    This endpoint generates a graphical report for the librarian and renders it via a HTML template to him/her.
+    Uses Plotly to create all the charts as in 'charts' folder and writes them to a file.
+    '''
     try:
         db_dist_books = db.query(sql.Transactions.book_id.distinct())
         db_dist_members = db.query(sql.Transactions.member_id.distinct())
@@ -27,6 +36,12 @@ async def get_report(request: Request, db: orm.Session=Depends(serv.get_db)):
         members_spending = list()
         books_names = list()
         books_issues = list()
+        
+        '''
+        Fetching Member names and their net Spend as a List.
+        Fetching Book names and the number of times, they have been issued as a List.
+        
+        '''
         
         for b in db_dist_members.all():
             db_member = db.query(sql.Members).filter(sql.Members.id == b[0]).first()
