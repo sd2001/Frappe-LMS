@@ -8,7 +8,18 @@ import psycopg2
 load_dotenv()
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+'''
+Sqlalchemy doesn't recognise postgresql as 'postgres', hence this modifies the Heroku Database URL
+'''
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+# -----------------------------------------------------------------
+
+'''
+Sqlalchemy Database Configurations
+'''
+engine = create_engine(DATABASE_URL)
 meta = MetaData()
 # conn = engine.connect()
 
