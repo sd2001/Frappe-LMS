@@ -28,6 +28,7 @@ async def new_issue(transaction: pm.Transactions, db: orm.Session=Depends(serv.g
         
     new_transaction = sql.Transactions(member_id=transaction.member_id, book_id=transaction.book_id)
     db_book.rem_stock -= 1
+    db_book.net_issue += 1
     db.add(new_transaction)
     db.commit()
     db.refresh(new_transaction)
