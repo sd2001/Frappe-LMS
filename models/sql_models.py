@@ -19,6 +19,7 @@ class Books(Base):
     publisher = Column(String)
     total_stock = Column(Integer, default=10)
     rem_stock = Column(Integer, default=10)
+    net_issue = Column(Integer, default=0)
     
     transaction = relationship('Transactions')
     
