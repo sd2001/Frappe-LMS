@@ -16,7 +16,7 @@ async def get_members(db: orm.Session=Depends(serv.get_db)):
         return Response(content=str(e))
 
 @app.get('/members/{id}', response_model = pm.Members)
-async def get_members(id: int, db: orm.Session=Depends(serv.get_db)):
+async def get_a_member(id: int, db: orm.Session=Depends(serv.get_db)):
     try:
         db_user = db.query(sql.Members).filter(sql.Members.id == id).first()
         if db_user is None:
@@ -41,7 +41,7 @@ async def create_member(member: pm.Members, db: orm.Session=Depends(serv.get_db)
         return Response(content=str(e))
 
 @app.put('/members/{id}', response_model = pm.Members)
-async def update_members(id: int, member: pm.Members, db: orm.Session=Depends(serv.get_db)):
+async def update_member(id: int, member: pm.Members, db: orm.Session=Depends(serv.get_db)):
     try:
         db_user = db.query(sql.Members).filter(sql.Members.id == id).first()
         if db_user is None:
@@ -56,7 +56,7 @@ async def update_members(id: int, member: pm.Members, db: orm.Session=Depends(se
         return Response(content=str(e))
     
 @app.delete('/members/{id}')
-async def delete_members(id: int, db: orm.Session=Depends(serv.get_db)):  
+async def delete_member(id: int, db: orm.Session=Depends(serv.get_db)):  
     try:
         db_user = db.query(sql.Members).filter(sql.Members.id == id)
         temp_user = db_user
