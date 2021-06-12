@@ -81,8 +81,7 @@ async def delete_member(id: int, db: orm.Session=Depends(serv.get_db)):
     For the Librarian!
     ''' 
     
-    db_user = db.query(sql.Members).filter(sql.Members.id == id)
-    print(db_user)
+    db_user = db.query(sql.Members).filter(sql.Members.id == id).first()
     temp_user = db_user
     if db_user is None:
         raise HTTPException(status_code=404, detail="This user does not exist!")
