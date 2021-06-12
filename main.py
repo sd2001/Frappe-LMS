@@ -5,6 +5,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
+
+serv.create_db()
 templates = serv.configure_templates(app)
 
 app.include_router(member.app)
