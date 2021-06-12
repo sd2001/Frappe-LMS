@@ -5,12 +5,11 @@ from plotly.subplots import make_subplots
 import numpy as np
 
 def book_pie_plot(names, issues):
-    data = [go.Pie(labels = names,values = issues, textinfo='label+percent', hole=.4)]
+    data = [go.Pie(labels = names,values = issues, textinfo='percent', hole=.4)]
     
     
     fig1 = go.Figure(data=data, layout=go.Layout(title=go.layout.Title(text="Pie Chart: Most Issued Books")))
-    fig1.update_layout(width=600, height=600,
-                       font_family="Arial",
+    fig1.update_layout(font_family="Arial",
                        title_font_color="RebeccaPurple",
                        title_font_family="Courier New, monospace",title={
 						'y':0.9,
@@ -22,11 +21,15 @@ def book_pie_plot(names, issues):
     
     return fig1
 
+def shorten_titles(n):
+    return n[:20]
+
 def book_line_plot(names, issues):
+    x = map(shorten_titles, names)
+    names = list(x)
     data = [go.Scatter(x = names, y = issues, mode='lines+markers', line_color='rgb(0,100,80)')]
     fig2 = go.Figure(data=data, layout=go.Layout(title=go.layout.Title(text="Line Chart: Most Issued Books")))
-    fig2.update_layout(width=600, height=600,
-                       font_family="Arial",
+    fig2.update_layout(font_family="Arial",
                        title_font_color="RebeccaPurple",
                        title_font_family="Courier New, monospace",
                        title={
@@ -34,8 +37,8 @@ def book_line_plot(names, issues):
 						'x':0.5,
 						'xanchor': 'center',
 						'yanchor': 'top'})
-    fig2.update_xaxes(title_text='Name of Books', title_font = {"size": 20})
-    fig2.update_yaxes(title_text='Net Issues', title_font = {"size": 20})
+    fig2.update_xaxes(title_text='Name of Books', title_font = {"size": 18})
+    fig2.update_yaxes(title_text='Net Issues', title_font = {"size": 18})
     
     return fig2
     
