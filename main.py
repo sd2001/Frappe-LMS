@@ -14,10 +14,11 @@ serv.create_db()
 templates = serv.configure_templates(app)
 
 # Adding the Individual routers to our main app
-app.include_router(member.app)
-app.include_router(books.app)
-app.include_router(transaction.app)
-app.include_router(reports.app)
+# Adding tags to make the routes more readable(https://fastapi.tiangolo.com/tutorial/bigger-applications/)
+app.include_router(member.app, tags=["Routes for Members"])
+app.include_router(books.app, tags=["Routes for Books"])
+app.include_router(transaction.app, tags=["Routes for Transactions"])
+app.include_router(reports.app, tags=["Routes for Reports"])
 
 # Displaying the home template
 @app.get('/', include_in_schema=False)
