@@ -38,22 +38,26 @@
  <br>
  
    ```
-   git clone https://github.com/sd2001/Frappe-LMS.git  
+   $ git clone https://github.com/sd2001/Frappe-LMS.git  
    ```   
 
    ```
-   cd Frappe-LMS
+   $ cd Frappe-LMS
    ```
 
    ```
-   pip install virtualenv
-   python -m venv <name of environment>
-   source <name>/bin/activate
-   pip install -r requirements.txt
+   $ pip install virtualenv
+   $ python -m venv <name of environment>
+   $ source <name>/bin/activate
+   $ pip install -r requirements.txt
    ```
 
    ```
-   uvicorn main:app --reload
+   $ uvicorn main:app --reload
+   
+   OR
+   
+   $ bash run.sh 
    ```  
    
    <div align="center">
