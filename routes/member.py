@@ -73,21 +73,21 @@ async def update_member(id: int, member: pm.Members, db: orm.Session=Depends(ser
     return db_user
     
     
-@app.delete('/members/{id}')
-async def delete_member(id: int, db: orm.Session=Depends(serv.get_db)): 
-    '''
-    This route deletes an existing Library Members.
-    It checks whether the entered user ID exists or not and then deletes as per Request.
-    For the Librarian!
-    ''' 
+# @app.delete('/members/{id}')
+# async def delete_member(id: int, db: orm.Session=Depends(serv.get_db)): 
+#     '''
+#     This route deletes an existing Library Members.
+#     It checks whether the entered user ID exists or not and then deletes as per Request.
+#     For the Librarian!
+#     ''' 
     
-    db_user = db.query(sql.Members).filter(sql.Members.id == id).first()
-    temp_user = db_user
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="This user does not exist!")
-    db_user.delete()
-    db.commit()
-    return Response(content=f"User with ID: {id} has been deleted")
+#     db_user = db.query(sql.Members).filter(sql.Members.id == id).first()
+#     temp_user = db_user
+#     if db_user is None:
+#         raise HTTPException(status_code=404, detail="This user does not exist!")
+#     db_user.delete()
+#     db.commit()
+#     return Response(content=f"User with ID: {id} has been deleted")
 
 @app.get('/library/warnings', response_model = List[pm.Members])
 async def warning_members(db: orm.Session=Depends(serv.get_db)):
